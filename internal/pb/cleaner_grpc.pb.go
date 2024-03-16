@@ -4,7 +4,7 @@
 // - protoc             v3.12.4
 // source: cleaner.proto
 
-package cleaner
+package pb
 
 import (
 	context "context"
@@ -19,7 +19,7 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	CleanerService_Clean_FullMethodName = "/cleaner.CleanerService/Clean"
+	CleanerService_Clean_FullMethodName = "/pb.CleanerService/Clean"
 )
 
 // CleanerServiceClient is the client API for CleanerService service.
@@ -96,7 +96,7 @@ func _CleanerService_Clean_Handler(srv interface{}, ctx context.Context, dec fun
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var CleanerService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "cleaner.CleanerService",
+	ServiceName: "pb.CleanerService",
 	HandlerType: (*CleanerServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
