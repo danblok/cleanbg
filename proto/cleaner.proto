@@ -9,23 +9,9 @@ service CleanerService {
 }
 
 message CleanRequest {
-  Metadata meta = 1;
-  bytes data = 2;
-}
-
-message Metadata {
-  ImageType type = 1;
-  string name = 2;
+  bytes data = 1;
 }
 
 message CleanResponse {
-  Metadata meta = 1;
-  bytes data = 2;
-}
-
-enum ImageType {
-  IMAGE_TYPE_UNSPECIFIED = 0;
-  IMAGE_TYPE_PNG = 1;
-  IMAGE_TYPE_JPEG = 2;
-  IMAGE_TYPE_WEBP = 3;
+  bytes data = 1;
 }

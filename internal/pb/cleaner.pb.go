@@ -20,65 +20,12 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-type ImageType int32
-
-const (
-	ImageType_IMAGE_TYPE_UNSPECIFIED ImageType = 0
-	ImageType_IMAGE_TYPE_PNG         ImageType = 1
-	ImageType_IMAGE_TYPE_JPEG        ImageType = 2
-	ImageType_IMAGE_TYPE_WEBP        ImageType = 3
-)
-
-// Enum value maps for ImageType.
-var (
-	ImageType_name = map[int32]string{
-		0: "IMAGE_TYPE_UNSPECIFIED",
-		1: "IMAGE_TYPE_PNG",
-		2: "IMAGE_TYPE_JPEG",
-		3: "IMAGE_TYPE_WEBP",
-	}
-	ImageType_value = map[string]int32{
-		"IMAGE_TYPE_UNSPECIFIED": 0,
-		"IMAGE_TYPE_PNG":         1,
-		"IMAGE_TYPE_JPEG":        2,
-		"IMAGE_TYPE_WEBP":        3,
-	}
-)
-
-func (x ImageType) Enum() *ImageType {
-	p := new(ImageType)
-	*p = x
-	return p
-}
-
-func (x ImageType) String() string {
-	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
-}
-
-func (ImageType) Descriptor() protoreflect.EnumDescriptor {
-	return file_cleaner_proto_enumTypes[0].Descriptor()
-}
-
-func (ImageType) Type() protoreflect.EnumType {
-	return &file_cleaner_proto_enumTypes[0]
-}
-
-func (x ImageType) Number() protoreflect.EnumNumber {
-	return protoreflect.EnumNumber(x)
-}
-
-// Deprecated: Use ImageType.Descriptor instead.
-func (ImageType) EnumDescriptor() ([]byte, []int) {
-	return file_cleaner_proto_rawDescGZIP(), []int{0}
-}
-
 type CleanRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Meta *Metadata `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
-	Data []byte    `protobuf:"bytes,2,opt,name=data,proto3" json:"data,omitempty"`
+	Data []byte `protobuf:"bytes,1,opt,name=data,proto3" json:"data,omitempty"`
 }
 
 func (x *CleanRequest) Reset() {
@@ -113,13 +60,6 @@ func (*CleanRequest) Descriptor() ([]byte, []int) {
 	return file_cleaner_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *CleanRequest) GetMeta() *Metadata {
-	if x != nil {
-		return x.Meta
-	}
-	return nil
-}
-
 func (x *CleanRequest) GetData() []byte {
 	if x != nil {
 		return x.Data
@@ -127,74 +67,18 @@ func (x *CleanRequest) GetData() []byte {
 	return nil
 }
 
-type Metadata struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	Type ImageType `protobuf:"varint,1,opt,name=type,proto3,enum=pb.ImageType" json:"type,omitempty"`
-	Name string    `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
-}
-
-func (x *Metadata) Reset() {
-	*x = Metadata{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_cleaner_proto_msgTypes[1]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *Metadata) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*Metadata) ProtoMessage() {}
-
-func (x *Metadata) ProtoReflect() protoreflect.Message {
-	mi := &file_cleaner_proto_msgTypes[1]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use Metadata.ProtoReflect.Descriptor instead.
-func (*Metadata) Descriptor() ([]byte, []int) {
-	return file_cleaner_proto_rawDescGZIP(), []int{1}
-}
-
-func (x *Metadata) GetType() ImageType {
-	if x != nil {
-		return x.Type
-	}
-	return ImageType_IMAGE_TYPE_UNSPECIFIED
-}
-
-func (x *Metadata) GetName() string {
-	if x != nil {
-		return x.Name
-	}
-	return ""
-}
-
 type CleanResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Meta *Metadata `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
-	Data []byte    `protobuf:"bytes,2,opt,name=data,proto3" json:"data,omitempty"`
+	Data []byte `protobuf:"bytes,1,opt,name=data,proto3" json:"data,omitempty"`
 }
 
 func (x *CleanResponse) Reset() {
 	*x = CleanResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_cleaner_proto_msgTypes[2]
+		mi := &file_cleaner_proto_msgTypes[1]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -207,7 +91,7 @@ func (x *CleanResponse) String() string {
 func (*CleanResponse) ProtoMessage() {}
 
 func (x *CleanResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_cleaner_proto_msgTypes[2]
+	mi := &file_cleaner_proto_msgTypes[1]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -220,14 +104,7 @@ func (x *CleanResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CleanResponse.ProtoReflect.Descriptor instead.
 func (*CleanResponse) Descriptor() ([]byte, []int) {
-	return file_cleaner_proto_rawDescGZIP(), []int{2}
-}
-
-func (x *CleanResponse) GetMeta() *Metadata {
-	if x != nil {
-		return x.Meta
-	}
-	return nil
+	return file_cleaner_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *CleanResponse) GetData() []byte {
@@ -241,31 +118,16 @@ var File_cleaner_proto protoreflect.FileDescriptor
 
 var file_cleaner_proto_rawDesc = []byte{
 	0x0a, 0x0d, 0x63, 0x6c, 0x65, 0x61, 0x6e, 0x65, 0x72, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x12,
-	0x02, 0x70, 0x62, 0x22, 0x44, 0x0a, 0x0c, 0x43, 0x6c, 0x65, 0x61, 0x6e, 0x52, 0x65, 0x71, 0x75,
-	0x65, 0x73, 0x74, 0x12, 0x20, 0x0a, 0x04, 0x6d, 0x65, 0x74, 0x61, 0x18, 0x01, 0x20, 0x01, 0x28,
-	0x0b, 0x32, 0x0c, 0x2e, 0x70, 0x62, 0x2e, 0x4d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0x52,
-	0x04, 0x6d, 0x65, 0x74, 0x61, 0x12, 0x12, 0x0a, 0x04, 0x64, 0x61, 0x74, 0x61, 0x18, 0x02, 0x20,
-	0x01, 0x28, 0x0c, 0x52, 0x04, 0x64, 0x61, 0x74, 0x61, 0x22, 0x41, 0x0a, 0x08, 0x4d, 0x65, 0x74,
-	0x61, 0x64, 0x61, 0x74, 0x61, 0x12, 0x21, 0x0a, 0x04, 0x74, 0x79, 0x70, 0x65, 0x18, 0x01, 0x20,
-	0x01, 0x28, 0x0e, 0x32, 0x0d, 0x2e, 0x70, 0x62, 0x2e, 0x49, 0x6d, 0x61, 0x67, 0x65, 0x54, 0x79,
-	0x70, 0x65, 0x52, 0x04, 0x74, 0x79, 0x70, 0x65, 0x12, 0x12, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65,
-	0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x22, 0x45, 0x0a, 0x0d,
-	0x43, 0x6c, 0x65, 0x61, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x20, 0x0a,
-	0x04, 0x6d, 0x65, 0x74, 0x61, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0c, 0x2e, 0x70, 0x62,
-	0x2e, 0x4d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0x52, 0x04, 0x6d, 0x65, 0x74, 0x61, 0x12,
-	0x12, 0x0a, 0x04, 0x64, 0x61, 0x74, 0x61, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0c, 0x52, 0x04, 0x64,
-	0x61, 0x74, 0x61, 0x2a, 0x65, 0x0a, 0x09, 0x49, 0x6d, 0x61, 0x67, 0x65, 0x54, 0x79, 0x70, 0x65,
-	0x12, 0x1a, 0x0a, 0x16, 0x49, 0x4d, 0x41, 0x47, 0x45, 0x5f, 0x54, 0x59, 0x50, 0x45, 0x5f, 0x55,
-	0x4e, 0x53, 0x50, 0x45, 0x43, 0x49, 0x46, 0x49, 0x45, 0x44, 0x10, 0x00, 0x12, 0x12, 0x0a, 0x0e,
-	0x49, 0x4d, 0x41, 0x47, 0x45, 0x5f, 0x54, 0x59, 0x50, 0x45, 0x5f, 0x50, 0x4e, 0x47, 0x10, 0x01,
-	0x12, 0x13, 0x0a, 0x0f, 0x49, 0x4d, 0x41, 0x47, 0x45, 0x5f, 0x54, 0x59, 0x50, 0x45, 0x5f, 0x4a,
-	0x50, 0x45, 0x47, 0x10, 0x02, 0x12, 0x13, 0x0a, 0x0f, 0x49, 0x4d, 0x41, 0x47, 0x45, 0x5f, 0x54,
-	0x59, 0x50, 0x45, 0x5f, 0x57, 0x45, 0x42, 0x50, 0x10, 0x03, 0x32, 0x3e, 0x0a, 0x0e, 0x43, 0x6c,
-	0x65, 0x61, 0x6e, 0x65, 0x72, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12, 0x2c, 0x0a, 0x05,
-	0x43, 0x6c, 0x65, 0x61, 0x6e, 0x12, 0x10, 0x2e, 0x70, 0x62, 0x2e, 0x43, 0x6c, 0x65, 0x61, 0x6e,
-	0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x11, 0x2e, 0x70, 0x62, 0x2e, 0x43, 0x6c, 0x65,
-	0x61, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x42, 0x06, 0x5a, 0x04, 0x2e, 0x2f,
-	0x70, 0x62, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x02, 0x70, 0x62, 0x22, 0x22, 0x0a, 0x0c, 0x43, 0x6c, 0x65, 0x61, 0x6e, 0x52, 0x65, 0x71, 0x75,
+	0x65, 0x73, 0x74, 0x12, 0x12, 0x0a, 0x04, 0x64, 0x61, 0x74, 0x61, 0x18, 0x01, 0x20, 0x01, 0x28,
+	0x0c, 0x52, 0x04, 0x64, 0x61, 0x74, 0x61, 0x22, 0x23, 0x0a, 0x0d, 0x43, 0x6c, 0x65, 0x61, 0x6e,
+	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x12, 0x0a, 0x04, 0x64, 0x61, 0x74, 0x61,
+	0x18, 0x01, 0x20, 0x01, 0x28, 0x0c, 0x52, 0x04, 0x64, 0x61, 0x74, 0x61, 0x32, 0x3e, 0x0a, 0x0e,
+	0x43, 0x6c, 0x65, 0x61, 0x6e, 0x65, 0x72, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12, 0x2c,
+	0x0a, 0x05, 0x43, 0x6c, 0x65, 0x61, 0x6e, 0x12, 0x10, 0x2e, 0x70, 0x62, 0x2e, 0x43, 0x6c, 0x65,
+	0x61, 0x6e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x11, 0x2e, 0x70, 0x62, 0x2e, 0x43,
+	0x6c, 0x65, 0x61, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x42, 0x06, 0x5a, 0x04,
+	0x2e, 0x2f, 0x70, 0x62, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -280,25 +142,19 @@ func file_cleaner_proto_rawDescGZIP() []byte {
 	return file_cleaner_proto_rawDescData
 }
 
-var file_cleaner_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
-var file_cleaner_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+var file_cleaner_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
 var file_cleaner_proto_goTypes = []interface{}{
-	(ImageType)(0),        // 0: pb.ImageType
-	(*CleanRequest)(nil),  // 1: pb.CleanRequest
-	(*Metadata)(nil),      // 2: pb.Metadata
-	(*CleanResponse)(nil), // 3: pb.CleanResponse
+	(*CleanRequest)(nil),  // 0: pb.CleanRequest
+	(*CleanResponse)(nil), // 1: pb.CleanResponse
 }
 var file_cleaner_proto_depIdxs = []int32{
-	2, // 0: pb.CleanRequest.meta:type_name -> pb.Metadata
-	0, // 1: pb.Metadata.type:type_name -> pb.ImageType
-	2, // 2: pb.CleanResponse.meta:type_name -> pb.Metadata
-	1, // 3: pb.CleanerService.Clean:input_type -> pb.CleanRequest
-	3, // 4: pb.CleanerService.Clean:output_type -> pb.CleanResponse
-	4, // [4:5] is the sub-list for method output_type
-	3, // [3:4] is the sub-list for method input_type
-	3, // [3:3] is the sub-list for extension type_name
-	3, // [3:3] is the sub-list for extension extendee
-	0, // [0:3] is the sub-list for field type_name
+	0, // 0: pb.CleanerService.Clean:input_type -> pb.CleanRequest
+	1, // 1: pb.CleanerService.Clean:output_type -> pb.CleanResponse
+	1, // [1:2] is the sub-list for method output_type
+	0, // [0:1] is the sub-list for method input_type
+	0, // [0:0] is the sub-list for extension type_name
+	0, // [0:0] is the sub-list for extension extendee
+	0, // [0:0] is the sub-list for field type_name
 }
 
 func init() { file_cleaner_proto_init() }
@@ -320,18 +176,6 @@ func file_cleaner_proto_init() {
 			}
 		}
 		file_cleaner_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Metadata); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_cleaner_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*CleanResponse); i {
 			case 0:
 				return &v.state
@@ -349,14 +193,13 @@ func file_cleaner_proto_init() {
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_cleaner_proto_rawDesc,
-			NumEnums:      1,
-			NumMessages:   3,
+			NumEnums:      0,
+			NumMessages:   2,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
 		GoTypes:           file_cleaner_proto_goTypes,
 		DependencyIndexes: file_cleaner_proto_depIdxs,
-		EnumInfos:         file_cleaner_proto_enumTypes,
 		MessageInfos:      file_cleaner_proto_msgTypes,
 	}.Build()
 	File_cleaner_proto = out.File
