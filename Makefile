@@ -1,5 +1,8 @@
 .PHONY: clean test all
 
+include .env
+export
+
 clean:
 	@rm internal/pb/*.go
 
@@ -10,8 +13,13 @@ gen:
 
 build:
 	@go build -o bin/cleanbg cmd/cleanbg/main.go
+	@go build -o bin/tgbot cmd/tgbot/main.go
 
-run:build
+run-http:build
 	@bin/cleanbg
 
+run-tg:build
+	@bin/tgbot
 
+run-service:
+	@cd src && python3 -m main.py
