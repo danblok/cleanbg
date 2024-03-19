@@ -1,10 +1,7 @@
 package main
 
 import (
-	"bytes"
 	"context"
-	"image"
-	"image/png"
 	"io"
 	"os"
 
@@ -16,8 +13,8 @@ import (
 
 func main() {
 	log := log.New("local")
+	log = log.With("app", "tg_bot")
 	log.Warn("logger enabled")
-	log = log.WithGroup("tg_bot")
 
 	client, err := grpcapi.Connect("[::]:42069")
 	if err != nil {
@@ -51,11 +48,7 @@ func main() {
 			return err
 		}
 
-		file, err := os.CreateTemp("", "*.png")
-		if err != nil {
-			return err
-		}
-		_, err = file.ReadFrom(rc)
+		file, err := os.CreateTemp("", "*.jpg")
 		if err != nil {
 			return err
 		}
@@ -67,12 +60,7 @@ func main() {
 			}
 		}()
 
-		processedImage, _, err := image.Decode(bytes.NewReader(img))
-		if err != nil {
-			return err
-		}
-
-		err = png.Encode(file, processedImage)
+		_, err = file.Write(img)
 		if err != nil {
 			return err
 		}
