@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>Clean.bg</title>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <script src="https://unpkg.com/htmx.org@1.9.11"></script>
+        <style>
+            #container {
+                display: flex;
+                justify-content: space-between;
+                width: 100%;
+                margin-top: 20px;
+            }
+            .image-container {
+                width: 50%;
+                text-align: center;
+            }
+            .image-container img {
+                max-width: 100%;
+                max-height: 300px;
+                margin: 10px auto;
+            }
+        </style>
+    </head>
+    <progress id="progress" value="0" max="100" style="width: 100%"></progress>
+    <body>
+        <h1>Remove the background</h1>
+        <form
+            id="form"
+            enctype="multipart/form-data"
+            hx-post="/remove"
+            hx-target="#image-wo-bg"
+            hx-swap="outerHTML"
+        >
+            <label for="image">Select image</label>
+            <input
+                id="image"
+                type="file"
+                name="image"
+                onchange="loadFile(event)"
+            />
+            <button>Remove BG</button>
+        </form>
+        <div id="container">
+            <div class="image-container">
+                <img id="image-w-bg" alt="" />
+            </div>
+            <div class="image-container">
+                <img id="image-wo-bg" alt="" />
+            </div>
+        </div>
+    </body>
+    <script>
+        var loadFile = function (event) {
+            var image = document.getElementById("image-w-bg");
+            image.src = URL.createObjectURL(event.target.files[0]);
+        };
+        htmx.on("#form", "htmx:xhr:progress", function (event) {
+            if (event.detail.total > 0) {
+                htmx.find("#progress").setAttribute(
+                    "value",
+                    (event.detail.loaded / event.detail.total) * 100,
+                );
+            } else {
+                htmx.find("#progress").setAttribute("value", 0);
+                event.target.reset();
+            }
+        });
+    </script>
+</html>
