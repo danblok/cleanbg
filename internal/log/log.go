@@ -6,16 +6,17 @@ import (
 )
 
 const (
-	// LOCAL defines the local environment
+	// LOCAL defines the local environment.
 	LOCAL = "local"
 
-	// DEV defines the dev environment
+	// DEV defines the dev environment.
 	DEV = "dev"
 
-	// PROD defines the prod environment
+	// PROD defines the prod environment.
 	PROD = "prod"
 )
 
+// New returns a new logger depending on the environment.
 func New(env string) *slog.Logger {
 	var log *slog.Logger
 
