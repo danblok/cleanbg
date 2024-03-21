@@ -70,5 +70,10 @@
             var image = document.getElementById("image-w-bg");
             image.src = URL.createObjectURL(event.target.files[0]);
         };
+        htmx.on("#form", "htmx:xhr:progress", function (event) {
+            if (event.detail.total <= 0) {
+                event.target.reset();
+            }
+        });
     </script>
 </html>
