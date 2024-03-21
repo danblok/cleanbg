@@ -5,67 +5,70 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <script src="https://unpkg.com/htmx.org@1.9.11"></script>
-        <style>
-            #container {
-                display: flex;
-                justify-content: space-between;
-                width: 100%;
-                margin-top: 20px;
-            }
-            .image-container {
-                width: 50%;
-                text-align: center;
-            }
-            .image-container img {
-                max-width: 100%;
-                max-height: 300px;
-                margin: 10px auto;
-            }
-        </style>
+        <link rel="stylesheet" type="text/css" href="/styles/output.css" />
     </head>
-    <progress id="progress" value="0" max="100" style="width: 100%"></progress>
     <body>
-        <h1>Remove the background</h1>
-        <form
-            id="form"
-            enctype="multipart/form-data"
-            hx-post="/remove"
-            hx-target="#image-wo-bg"
-            hx-swap="outerHTML"
-        >
-            <label for="image">Select image</label>
-            <input
-                id="image"
-                type="file"
-                name="image"
-                onchange="loadFile(event)"
-            />
-            <button>Remove BG</button>
-        </form>
-        <div id="container">
-            <div class="image-container">
-                <img id="image-w-bg" alt="" />
-            </div>
-            <div class="image-container">
-                <img id="image-wo-bg" alt="" />
+        <div class="w-full py-6 mx-auto my-0">
+            <div class="flex flex-col gap-4 px-4 md:px-6">
+                <h1 class="text-3xl font-bold">Clean.bg</h1>
+                <p class="text-gray-500 max-w-[600px]">
+                    Upload an image to remove background from it. Supported file
+                    types: JPEG, PNG, GIF, SVG, WEBP and more.
+                </p>
+                <div class="grid gap-4">
+                    <div class="flex items-center gap-4">
+                        <form
+                            class="flex items-center gap-2"
+                            id="form"
+                            enctype="multipart/form-data"
+                            hx-post="/remove"
+                            hx-target="#image-wo-bg"
+                            hx-swap="outerHTML"
+                        >
+                            <label
+                                class="text-sm font-bold leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 m-0"
+                                for="image"
+                            >
+                                <input
+                                    class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer"
+                                    id="image"
+                                    type="file"
+                                    name="image"
+                                    onchange="attachFile(event)"
+                                />
+                            </label>
+                            <label
+                                class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 m-0"
+                                for="upload-btn"
+                            >
+                                <input
+                                    class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer"
+                                    id="upload-btn"
+                                    type="submit"
+                                    value="Upload"
+                                />
+                            </label>
+                        </form>
+                    </div>
+
+                    <div class="grid items-center gap-4 sm:grid-cols-2">
+                        <img
+                            id="image-w-bg"
+                            class="border border-gray-200 border-dashed rounded-md grid w-full place-items-center border-gray-200 h-[720px] sm:max-h-[720px] dark:border-gray-800 hover:bg-gray-100 dark:hover:bg-gray-50 object-scale-down"
+                        />
+                        <img
+                            id="image-wo-bg"
+                            class="border border-gray-200 rounded-md grid w-full place-items-center border-gray-200 h-[720px] sm:max-h-[720px] dark:border-gray-800 hover:bg-gray-100 dark:hover:bg-gray-50 object-scale-down"
+                        />
+                    </div>
+                </div>
             </div>
         </div>
     </body>
     <script>
-        var loadFile = function (event) {
+        var attachFile = function (event) {
             var image = document.getElementById("image-w-bg");
             image.src = URL.createObjectURL(event.target.files[0]);
         };
-        htmx.on("#form", "htmx:xhr:progress", function (event) {
-            if (event.detail.total > 0) {
-                htmx.find("#progress").setAttribute(
-                    "value",
-                    (event.detail.loaded / event.detail.total) * 100,
-                );
-            } else {
-                htmx.find("#progress").setAttribute("value", 0);
-                event.target.reset();
-            }
-        });
     </script>
 </html>

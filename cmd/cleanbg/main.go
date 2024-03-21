@@ -63,8 +63,10 @@ func main() {
 		_, err = w.Write(
 			[]byte(
 				fmt.Sprintf(
-					"<img id=\"image-wo-bg\" src=\"data:image/%s;base64,%s\" />",
-					"jpeg",
+					`<img id="image-wo-bg" src="data:image%s;base64,%s" 
+class="border border-gray-200 rounded-md grid w-full place-items-center border-gray-200 h-[720px] sm:max-h-[720px] dark:border-gray-800 hover:bg-gray-100 dark:hover:bg-gray-50 object-scale-down"
+/>`,
+					"jpg",
 					base64.StdEncoding.EncodeToString(image),
 				),
 			),
@@ -97,7 +99,10 @@ func main() {
 		}
 	})
 
-	log.Info("started http server")
+	styles := http.FileServer(http.Dir("./public/"))
+	http.Handle("/styles/", http.StripPrefix("/styles/", styles))
+
+	log.Info("started http server on [::]:8080")
 	if err := http.ListenAndServe("[::]:8080", nil); err != nil {
 		panic(err)
 	}
